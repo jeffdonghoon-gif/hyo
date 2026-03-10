@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&family=Hahmlet:wght@400;700;900&family=Nanum+Brush+Script&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nanum Gothic", ui-sans-serif, system-ui, sans-serif;
+  --font-gaegu: "Gaegu", cursive;
+}
+
+@layer base {
+  body {
+    @apply bg-[#FFFDF0] text-slate-800;
+  }
+}
+
+@layer components {
+  .cartoon-border {
+    @apply border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+  }
+  
+  .cartoon-button {
+    @apply border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all;
+  }
+}
