@@ -20,4 +20,70 @@
   .cartoon-button {
     @apply border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all;
   }
+
+  /* 버튼 내 텍스트: 중앙 정렬, 두 줄 시 자연스럽게 줄바꿈 */
+  .btn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+    word-break: keep-all;
+    height: auto;
+    min-height: 2.75rem;
+  }
+
+  /* '굳이 안 하셔도...' 안내 문구: 중앙 정렬, 줄 간격 */
+  .intro-disclaimer {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    min-height: 2.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .intro-disclaimer {
+    line-height: 1.7;
+  }
+}
+
+/* 공감 인트로: 문구당 2s 페이드인 → 2s 유지 → 2s 페이드아웃 (총 6s) */
+@keyframes intro-message {
+  0% { opacity: 0; }
+  33.33% { opacity: 1; }
+  66.67% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.intro-message {
+  animation: intro-message 6s ease-in-out forwards;
+}
+
+.intro-button-enter {
+  animation: intro-button-enter 0.8s ease-out forwards;
+}
+
+@keyframes intro-button-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 랜딩 카카오톡 재생 버튼: 미세하게 두근두근(pulsing) */
+@keyframes landing-play-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.95; }
+}
+
+.landing-play-pulse {
+  animation: landing-play-pulse 2s ease-in-out infinite;
 }
