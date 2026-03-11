@@ -160,6 +160,12 @@ export default function App() {
     };
   }, [showIntro, showLanding]);
 
+  // BGM 볼륨 슬라이더와 오디오 엘리먼트 항상 동기화 (조절이 반영되도록)
+  useEffect(() => {
+    const audio = bgmRef.current;
+    if (audio) audio.volume = bgmVolume;
+  }, [bgmVolume]);
+
   const handleIntroButtonClick = () => {
     sfxUnlockedRef.current = true; // 버튼 클릭 시점에 먼저 잠금 해제 (그 다음 playClickSound 재생)
     playClickSound();
@@ -278,7 +284,6 @@ export default function App() {
   const handleBgmVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = Number(e.target.value);
     setBgmVolume(v);
-    if (bgmRef.current) bgmRef.current.volume = v;
   };
 
   const checkedCount = checks.filter(c => c === true).length;
@@ -691,17 +696,23 @@ export default function App() {
               </button>
               <span className="text-slate-400">|</span>
               <label className="flex items-center gap-1.5 text-xs font-bold text-slate-500">
-                <span className="sr-only">볼륨</span>
+                <span className="sr-only">BGM 볼륨</span>
                 <input
                   type="range"
-                  min={0.1}
-                  max={0.7}
+                  min={0}
+                  max={1}
                   step={0.05}
                   value={bgmVolume}
                   onChange={handleBgmVolumeChange}
                   onClick={(e) => e.stopPropagation()}
-                  className="h-1.5 w-20 accent-orange-500"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="h-2 w-24 sm:w-28 accent-orange-500 cursor-pointer"
+                  aria-label="BGM 볼륨 조절"
                 />
+                <span className="min-w-[2rem] text-slate-500 tabular-nums">
+                  {Math.round(bgmVolume * 100)}%
+                </span>
               </label>
             </div>
           </div>
